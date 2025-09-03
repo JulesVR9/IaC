@@ -1,0 +1,14 @@
+# Credenciales
+.env
+
+# Archivos de estado de Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Archivos de planes de Terraform
+*.tfplan
+myfirstplan
+s3plan
+
