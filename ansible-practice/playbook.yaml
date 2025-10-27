@@ -1,0 +1,9 @@
+- name: Julia's first play
+  hosts: Julia
+  tasks:
+    - name: Ping Julia's hosts
+      ansible.builtin.ping:
+
+    - name: Print message
+      ansible.builtin.debug:
+        msg: "Hola Julia, Ansible está funcionando 🚀"

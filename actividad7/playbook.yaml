@@ -1,0 +1,9 @@
+- name: Playbook de Julia
+  hosts: myhosts
+  tasks:
+    - name: Hacer ping a mis hosts
+      ansible.builtin.ping:
+
+    - name: Mostrar mensaje personalizado
+      ansible.builtin.debug:
+        msg: "Hola, soy Julia y este es mi primer playbook de Ansible 😊"
