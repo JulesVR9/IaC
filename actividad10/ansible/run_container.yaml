@@ -1,0 +1,54 @@
+---
+- name: Instalar Docker y lanzar contenedor
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Actualizar apt
+      apt:
+        update_cache: yes
+
+    - name: Instalar paquetes requeridos
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+    - name: Agregar GPG key de Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Agregar repositorio Docker
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Instalar Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Asegurarse que Docker esté activo
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Descargar imagen httpd
+      docker_image:
+        name: httpd
+        source: pull
+
+    - name: Ejecutar contenedor httpd
+      docker_container:
+        name: webserver
+        image: httpd
+        state: started
+        ports:
+          - "80:80"
